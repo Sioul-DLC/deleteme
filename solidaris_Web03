@@ -1,0 +1,1130 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/complaints": {
+            "post": {
+                "operationId": "ComplaintController_createComplaint",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateComplaintRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "\n    Possible specific error codes\n    * NISS_IS_REQUIRED - indicates that niss is required if status is \"affiliated\".",
+                        "schema": {
+                            "example": {
+                                "httpCode": 400,
+                                "httpMessage": "Bad Request Exception",
+                                "moreInformation": {
+                                    "errorCode": "NISS_IS_REQUIRED",
+                                    "errorMessage": "NISS_IS_REQUIRED",
+                                    "fieldName": ""
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/questions": {
+            "post": {
+                "operationId": "QuestionsController_createQuestion",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateQuestionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Functional error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pinkstickers": {
+            "post": {
+                "operationId": "PinkstickersController_requestPinkStickers",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestPinkStickersDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/ceam": {
+            "post": {
+                "operationId": "CeamController_requestCeam",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestCeamDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Request CEAM"
+                    }
+                }
+            }
+        },
+        "/smaunsubscribe/{numContract}": {
+            "post": {
+                "operationId": "SmaController_unsubscribe",
+                "parameters": [
+                    {
+                        "name": "numContract",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/approvedproviders/psychologists/{page}/{nbrPerPage}/{searchText}": {
+            "get": {
+                "operationId": "ApprovedProvidersController_getPsychologists",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated providers info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPsychologistsResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/approvedproviders/alternativetherapists": {
+            "get": {
+                "operationId": "ApprovedProvidersController_getAlternative",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "query",
+                        "description": "The page number",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "query",
+                        "description": "Wanted number of records per page",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search text",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "wantAllTypes",
+                        "required": false,
+                        "in": "query",
+                        "description": "Indicates if want all type",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "wantTacupuncteurs",
+                        "required": false,
+                        "in": "query",
+                        "description": "Indicates if want all tacupuncteurs",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "wantOsteos",
+                        "required": false,
+                        "in": "query",
+                        "description": "Indicates if want all osteos",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "wantMms",
+                        "required": false,
+                        "in": "query",
+                        "description": "Indicates if want all mms",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "wantChiros",
+                        "required": false,
+                        "in": "query",
+                        "description": "Indicates if want chiros",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated approved alternative therapists info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetApprovedAlternativeTherapistsResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/approvedproviders/diets/{page}/{nbrPerPage}/{searchText}": {
+            "get": {
+                "operationId": "ApprovedProvidersController_getDiets",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated diets info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetDietsResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FunctionalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/medicalarticles/vaccins/{page}/{nbrPerPage}/{searchText}": {
+            "get": {
+                "operationId": "MedicalArticlesController_getVaccins",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated vaccins info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetVaccinsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/medicalarticles/contraceptives/{page}/{nbrPerPage}/{searchText}": {
+            "get": {
+                "operationId": "MedicalArticlesController_getContraceptives",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated contraceptives info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetContraceptivesResponseDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/medicalarticles/homeopathicmedicines/{page}/{nbrPerPage}/{searchText}": {
+            "get": {
+                "operationId": "MedicalArticlesController_getHomeopathicMedicines",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "nbrPerPage",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchText",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The paginated homeopathic medicines info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetHomeopathicMedicinesResponseDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cit": {
+            "post": {
+                "operationId": "CitController_requestCIT",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestCITDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Request CIT"
+                    }
+                }
+            }
+        }
+    },
+    "info": {
+        "title": "Solidaris WEB API",
+        "description": "Solidaris API for web",
+        "version": "1.5.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "CreateComplaintRequestDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "niss": {
+                        "type": "string",
+                        "description": "The applicant's national registration number. Must be filled in if status = \"Affiliated\".",
+                        "maxLength": 50
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "birthDate": {
+                        "type": "string",
+                        "description": "The user birth date, should be iso 8601 compatible (eg :  1999-12-25)"
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 200
+                    },
+                    "content": {
+                        "type": "string",
+                        "maxLength": 1000
+                    },
+                    "territory": {
+                        "type": "string",
+                        "enum": [
+                            "305",
+                            "315",
+                            "317",
+                            "319",
+                            "323",
+                            "325",
+                            "999",
+                            "BRABANT_WALLON",
+                            "MONS_WALLONIE",
+                            "CHARLEROI",
+                            "LIEGE",
+                            "LUXEMBOURG",
+                            "NAMUR",
+                            "OTHER"
+                        ]
+                    },
+                    "statusComment": {
+                        "type": "string",
+                        "maxLength": 200
+                    },
+                    "complaintSubject": {
+                        "type": "string",
+                        "enum": [
+                            "yourMutuality",
+                            "medicalAdviser",
+                            "yourInsurance"
+                        ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "other",
+                            "affiliated",
+                            "careProvider"
+                        ]
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "birthDate",
+                    "title",
+                    "content",
+                    "complaintSubject",
+                    "status"
+                ]
+            },
+            "FunctionalErrorItem": {
+                "type": "object",
+                "properties": {
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "fieldName": {
+                        "type": "string"
+                    },
+                    "errorMessage": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "errorCode",
+                    "fieldName",
+                    "errorMessage"
+                ]
+            },
+            "FunctionalError": {
+                "type": "object",
+                "properties": {
+                    "httpCode": {
+                        "type": "number"
+                    },
+                    "httpMessage": {
+                        "type": "string"
+                    },
+                    "moreInformation": {
+                        "$ref": "#/components/schemas/FunctionalErrorItem"
+                    }
+                },
+                "required": [
+                    "httpCode",
+                    "httpMessage",
+                    "moreInformation"
+                ]
+            },
+            "CreateQuestionDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "niss": {
+                        "type": "string",
+                        "description": "The applicant's national registration number. Must be filled in if status = \"Affiliated\".",
+                        "maxLength": 50
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "birthDate": {
+                        "type": "string",
+                        "description": "The user birth date, should be iso 8601 compatible (eg :  1999-12-25)"
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 200
+                    },
+                    "content": {
+                        "type": "string",
+                        "maxLength": 1000
+                    },
+                    "territory": {
+                        "type": "string",
+                        "enum": [
+                            "305",
+                            "315",
+                            "317",
+                            "319",
+                            "323",
+                            "325",
+                            "999",
+                            "BRABANT_WALLON",
+                            "MONS_WALLONIE",
+                            "CHARLEROI",
+                            "LIEGE",
+                            "LUXEMBOURG",
+                            "NAMUR",
+                            "OTHER"
+                        ]
+                    },
+                    "topic": {
+                        "type": "string",
+                        "description": "The topic of the question",
+                        "enum": [
+                            "drive_mut_lesson",
+                            "incapacity",
+                            "incomprehensible_documents",
+                            "advantages",
+                            "mobile_app_emut_problem",
+                            "change_of_situation",
+                            "sma_question",
+                            "other"
+                        ]
+                    },
+                    "insurancesRequested": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "birthDate",
+                    "title",
+                    "content",
+                    "topic"
+                ]
+            },
+            "RequestPinkStickersDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "requestorNiss": {
+                        "type": "string",
+                        "description": "The niss of the person asking the pink stickers. The member must be a known member with an active contract otherwise receive a \"Not authorized exception\"."
+                    },
+                    "forAllTheFamily": {
+                        "type": "boolean",
+                        "description": "Indicates if you want to print pink stickers for all members, i.e. the owner who makes the request and all his dependents.If is true, then the list in dependentsSI will be ignored to make the request for all members"
+                    }
+                },
+                "required": [
+                    "requestorNiss",
+                    "forAllTheFamily"
+                ]
+            },
+            "RequestCeamDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "requestorNiss": {
+                        "type": "string",
+                        "description": "The niss of the person asking the CEAM. The member must be a known member with an active contract otherwise receive a \"Not authorized exception\"."
+                    },
+                    "forAllTheFamily": {
+                        "type": "boolean",
+                        "description": "Indicates if you want to print CEAM for all members, i.e. the owner who makes the request and all his dependents."
+                    },
+                    "journeyContext": {
+                        "type": "string",
+                        "enum": [
+                            "hollidays",
+                            "study",
+                            "professional"
+                        ]
+                    },
+                    "startDate": {
+                        "type": "string",
+                        "description": "The journey start date, should be iso 8601 compatible (eg :  1999-12-25)"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "description": "The journey end date, should be iso 8601 compatible (eg :  1999-12-25)"
+                    },
+                    "country": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "requestorNiss",
+                    "forAllTheFamily",
+                    "journeyContext",
+                    "startDate",
+                    "endDate",
+                    "country"
+                ]
+            },
+            "ApprovedPsychologistDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "GetPsychologistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "psychologists": {
+                        "description": "Data array of psychologist",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ApprovedPsychologistDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "psychologists"
+                ]
+            },
+            "ApprovedAlternativeTherapistsDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "Id"
+                    },
+                    "therapistType": {
+                        "type": "number",
+                        "description": "Therapist type"
+                    },
+                    "aggregationNumber": {
+                        "type": "number",
+                        "description": "Aggregation number"
+                    },
+                    "aggregationDate": {
+                        "type": "string",
+                        "description": "Aggregation date"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name"
+                    },
+                    "firstAndLastName": {
+                        "type": "string",
+                        "description": "First and last name"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Address"
+                    },
+                    "zipCode": {
+                        "type": "string",
+                        "description": "Zip code"
+                    },
+                    "locality": {
+                        "type": "string",
+                        "description": "Locality"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "description": "Phone number"
+                    },
+                    "organisation": {
+                        "type": "string",
+                        "description": "Organisation"
+                    }
+                },
+                "required": [
+                    "id",
+                    "therapistType",
+                    "aggregationNumber",
+                    "aggregationDate",
+                    "firstName",
+                    "lastName",
+                    "firstAndLastName",
+                    "address",
+                    "zipCode",
+                    "locality",
+                    "phoneNumber",
+                    "organisation"
+                ]
+            },
+            "GetApprovedAlternativeTherapistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "therapist": {
+                        "description": "Data array of psychologist",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ApprovedAlternativeTherapistsDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "therapist"
+                ]
+            },
+            "DietsDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "GetDietsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "diets": {
+                        "description": "Data array of dieticians",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DietsDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "diets"
+                ]
+            },
+            "VaccinDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "Id of record"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "laboratory": {
+                        "type": "string",
+                        "description": "Laboratory"
+                    },
+                    "infections": {
+                        "type": "string",
+                        "description": "Infections"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "laboratory",
+                    "infections"
+                ]
+            },
+            "GetVaccinsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "vaccins": {
+                        "description": "Data array of vaccins",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VaccinDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "vaccins"
+                ]
+            },
+            "ContraceptiveDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "packing": {
+                        "type": "string",
+                        "description": "Packing"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "packing",
+                    "type"
+                ]
+            },
+            "GetContraceptivesResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "contraceptive": {
+                        "description": "Data array of psychologist",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ContraceptiveDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "contraceptive"
+                ]
+            },
+            "HomeopathicMedicineDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "laboratory": {
+                        "type": "string",
+                        "description": "Laboratory"
+                    },
+                    "packing": {
+                        "type": "string",
+                        "description": "Packing"
+                    }
+                },
+                "required": [
+                    "name",
+                    "laboratory",
+                    "packing"
+                ]
+            },
+            "GetHomeopathicMedicinesResponseDto": {
+                "type": "object",
+                "properties": {
+                    "searchTotalCount": {
+                        "type": "number",
+                        "description": "The total records count bases on the passed filter"
+                    },
+                    "moreData": {
+                        "type": "boolean",
+                        "description": "Indicates if there are more records or not"
+                    },
+                    "homeopathic": {
+                        "description": "Data array of homeo pathic",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HomeopathicMedicineDto"
+                        }
+                    }
+                },
+                "required": [
+                    "searchTotalCount",
+                    "moreData",
+                    "homeopathic"
+                ]
+            },
+            "RequestCITDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the requestor."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the requestor."
+                    },
+                    "birthDate": {
+                        "type": "string",
+                        "description": "The requestor birth date, should be iso 8601 compatible (eg :  1999-12-25)"
+                    },
+                    "niss": {
+                        "type": "string",
+                        "description": "The requestor national registry number",
+                        "maxLength": 50
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "birthDate",
+                    "niss"
+                ]
+            }
+        }
+    }
+}
